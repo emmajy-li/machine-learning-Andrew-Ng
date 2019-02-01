@@ -21,11 +21,18 @@ grad = zeros(size(theta));
 %
 
 
+for i = 1:m
+    J = y(i)*log(1/(1+exp((X(i, :)*theta)*(-1))))+(1-y(i))*log(1-1/(1+exp((X(i, :)*theta)*(-1)))) + J;
+end
 
-
-
-
-
+for j = 1:size(theta)
+     for i = 1:m
+         grad(j) = (1/(1+exp((X(i, :)*theta)*(-1))) - y(i))*X(i, j) + grad(j);
+     end
+end
+       
+grad = 1/m*grad;
+J = -1/m*J;
 
 % =============================================================
 
